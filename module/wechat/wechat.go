@@ -156,7 +156,8 @@ const (
                 },
                 function (res) {
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
-                        Toast("支付成功");
+						//window.location.href="https://www.baidu.com";
+						WeixinJSBridge.call('closeWindow');
                     } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                         Toast("支付取消");
                     } else {
