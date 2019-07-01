@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/url"
 	"pay_service/module/alipay"
@@ -16,7 +15,8 @@ import (
 	"utils/file"
 	"utils/gin_check"
 	"utils/http_lib"
-	"vending_service/module/comm"
+
+	"github.com/gin-gonic/gin"
 )
 
 const OAUTH2_URL = "window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?"
@@ -123,7 +123,7 @@ func unifyPayPage(c *gin.Context) {
 			param := fmt.Sprintf("%s,%s,%s,%v", mapData[BODY], mapData[TRADE_NO], str_lib.UrlToUrlEncode(mapData[NOTIFY_URL].(string)), mapData[TOTAL_FEE])
 			script := getOauth2Url(wxAppId, wxPaymentNotify, param)
 			s := strings.Replace(wxSkipPage, "执行脚本", script, 1)
-			c.Data(comm.HTTP_SUCCESS, TEXT_HTML, []byte(s))
+			c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(s))
 		} else if strings.Contains(userAgent, "UCBrowser") {
 			var dealInfo alipay.DealBaseInfo
 			json_lib.ObjectToObject(&dealInfo, mapData)
@@ -131,7 +131,7 @@ func unifyPayPage(c *gin.Context) {
 			dealInfo.TotalFee = dealInfo.TotalFee / 100
 			dealInfo.NotifyUrl = mapData[NOTIFY_URL].(string)
 			if payPage, err := ali_payment.AliH5Payment(dealInfo); err == nil {
-				c.Data(comm.HTTP_SUCCESS, TEXT_HTML, []byte(payPage))
+				c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(payPage))
 			} else {
 				gin_check.SimpleReturn(ERR_CALL_PARMENT, err.Error(), c)
 			}
