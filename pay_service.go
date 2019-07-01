@@ -15,8 +15,11 @@ import (
 	"utils/file"
 	"utils/gin_check"
 	"utils/http_lib"
+<<<<<<< HEAD
 
 	"github.com/gin-gonic/gin"
+=======
+>>>>>>> fca15955450fd021ec17ca8bd72d5efb7366e6b5
 )
 
 const OAUTH2_URL = "window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?"
@@ -111,6 +114,7 @@ func main() {
 	service.POST(AliPayRelativePath("AliPayVerifySign"), ali_payment.AliPayVerifySign)
 	//微信,支付宝扫二合一码支付
 	service.POST("/payService/unifyPayPage", unifyPayPage)
+
 	service.Run(":8003") //启动服务
 }
 
