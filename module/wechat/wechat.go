@@ -199,13 +199,6 @@ func Init(appId, mchId, appSecret, apiSecret string, cFile, kFile string, MinPro
 	wxApiSecret = apiSecret
 	certFile = cFile
 	keyFile = kFile
-	str := `<xml><return_code>SUCCESS</return_code><appid><![CDATA[wx121ec1cc9aafbe5b]]></appid><mch_id><![CDATA[1486136062]]></mch_id><nonce_str><![CDATA[f3d600f86cb57c38509cad76d968dfdf]]></nonce_str><req_info><![CDATA[zV0t9wutGE/5Ucs1gGsCfFV17Cu3kJrxdc8SbSEQR1uVNtpJ7q1Pgvhprn9FYDN96NbF/D4UK8kJk6aAIiDa9s77gxhSmVIKe78H9y2bY14rGD2JnTDqk7bym6oBhsgmO CYMlzougEVdxXMkn0AAWbytYJ0Y7VRM/JNLHPpkmEueIgp0yLOfiPMH//TVTIJ4cqttRyg65IMSl19/T1gwmspVLmY2U12a748NIwe5RVtP57KQs3aidD8BTKLpov7sPD7Qv4EpkI7qu/q9nspvr65EOCTRYnpQ9jR5uF0AYcZbySmTnXf/9c/zAy2tI26vL1LEGcs79eRRk8od82lSoXbGXsHG3k463eyxT7h9Tf3LhJvTMw7Gx8trxhpUbj1o7dCJEsgyC36bAR4vGe1HqQj3iHWeFuyUia5OBmKeR50ONycMdYT4qsSQv6W8Ic670Wgj0krkU1bvyOGXl7GMpevwgA0QG85BY8FlRZzs9JSXXIlShR Jiv6pzITwGmDNqQUfUTphbgqbNmpW4/hR0uXcQqLVb091xdSESFz/bjIFXjOi0qsq13mSee91rqLS3DIq2MJNcLoeJ9qI9KpSjn2fNXWF14kDWyUhGL1LuAN1NFQXtP3nu2 x5bAPEhlSdEB8y8GueStRlD RAyVYAVMQiw9OPJwnCKwOwO77jyYksWWeNFV/mZ unp7PRQNRLU6w8XlheEli2irw8l0DNHJtN3D/Iu4BaDmDFmkKCW6rqpymkcIOB5CPB V9RuP6a8lupcoBCaEAAKRrDauEBHjH4D 94VVTqePBT97a5m90zWSOMyzcGuAhgdmpfomrCUy3AO8dRBwLirpTIbt4XGR60DobPzTvmIjida6wzcgyirl5ymAqFm3nn8ik6zXMENE037sz1FM51XRak0i0kVjAApnQqwwhMLhxmNhdSjsveLslcfDoBUdcA82eM4K/3JkeGC 9R/zfKEq5Ca192IS87pZBcpL4LoGSHDQ2kRc3IQl6h/I ej9UYDfW3Nixd5A3nSi1d8zZz5Zp0Jd8UtFFb1Tvv AJjesDLAR0Nw1IEK wNF6SV9j1RkS7/5xJfItiHJDwYYyNBFGOP2xlA==]]></req_info></xml>`
-	if info, err := wxDecodeRefundNotify(str); err == nil {
-		fmt.Printf("%#v", info)
-	} else {
-		fmt.Printf("解密出错:%v", err)
-	}
-
 }
 
 //获取商家支付码

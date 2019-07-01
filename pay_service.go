@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/url"
 	"pay_service/module/alipay"
@@ -15,11 +16,6 @@ import (
 	"utils/file"
 	"utils/gin_check"
 	"utils/http_lib"
-<<<<<<< HEAD
-
-	"github.com/gin-gonic/gin"
-=======
->>>>>>> fca15955450fd021ec17ca8bd72d5efb7366e6b5
 )
 
 const OAUTH2_URL = "window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?"
@@ -186,7 +182,6 @@ func init() {
 	wxPaymentNotify = file.ReadConfig(WECHAT, "wxPaymentNotify", CONF_PATH)
 	wxMinProgramId = file.ReadConfig(WECHAT, "wxMinProgramId", CONF_PATH)
 	wxMinProgramSecret = file.ReadConfig(WECHAT, "wxMinProgramSecret", CONF_PATH)
-	fmt.Println(wxMinProgramId, wxMinProgramSecret)
 	aliPayAppId = file.ReadConfig(ALIPAY, ALIPAY_APP_ID, CONF_PATH)
 	if wxAppId == EMPTY || wxMchId == EMPTY || wxAppSecret == EMPTY || wxApiSecret == EMPTY {
 		fmt.Println("read config file fail")
@@ -203,7 +198,6 @@ func init() {
 //路由网关
 func routerGateway(c *gin.Context) {
 	method := c.Request.Method
-
 	//调试输出
 	switch method {
 	case "POST", "PATCH", "PUT":
