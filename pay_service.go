@@ -118,13 +118,12 @@ func main() {
 func unifyPayPage(c *gin.Context) {
 	if _, mapData, err := gin_check.CheckPostParameter(c, BODY, TRADE_NO, NOTIFY_URL, TOTAL_FEE); err == nil {
 		userAgent := c.GetHeader(USER_AGENT)
-		fmt.Println("【统一支付USER AGENT】：", userAgent)
 		if strings.Contains(userAgent, "MQQBrowser") {
 			param := fmt.Sprintf("%s,%s,%s,%v", mapData[BODY], mapData[TRADE_NO], str_lib.UrlToUrlEncode(mapData[NOTIFY_URL].(string)), mapData[TOTAL_FEE])
 			script := getOauth2Url(wxAppId, wxPaymentNotify, param)
 			s := strings.Replace(wxSkipPage, "执行脚本", script, 1)
 			c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(s))
-		} else if strings.Contains(userAgent, "UCBrowser") {
+		} else if strings.Contains(userAgent, "AlipayClient") {
 			var dealInfo alipay.DealBaseInfo
 			json_lib.ObjectToObject(&dealInfo, mapData)
 			dealInfo.Subject = dealInfo.Body
