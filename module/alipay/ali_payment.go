@@ -60,6 +60,7 @@ type NotifyInfo struct {
 	TradeStatus   string  `json:"trade_status"`   //交易状态(WAIT_BUYER_PAY-交易创建,TRADE_CLOSED-关闭,TRADE_SUCCESS-完成,TRADE_FINISHED-交易结束,不可退款)
 	TotalAmount   float64 `json:"total_amount"`   //订单金额
 	ReceiptAmount float64 `json:"receipt_amount"` //实收金额
+	RefundFee     float64 `json:"refund_fee,omitempty"`
 }
 
 var aliPayPublicKey string //支付宝平台公钥。是用签验平台返回和回调数据
@@ -157,6 +158,9 @@ func VerifySign(body string) (ret bool, notifyInfo NotifyInfo) {
 			json_lib.ObjectToObject(&notifyInfo, data)
 			number_lib.StrToFloat(data["total_amount"], &notifyInfo.TotalAmount)
 			number_lib.StrToFloat(data["receipt_amount"], &notifyInfo.ReceiptAmount)
+			if data["refund_fee"] != "" {
+				number_lib.StrToFloat(data["refund_fee"], &notifyInfo.RefundFee)
+			}
 		}
 	}
 	return

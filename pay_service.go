@@ -118,12 +118,7 @@ func main() {
 func unifyPayPage(c *gin.Context) {
 	if _, mapData, err := gin_check.CheckPostParameter(c, BODY, TRADE_NO, NOTIFY_URL, TOTAL_FEE); err == nil {
 		userAgent := c.GetHeader(USER_AGENT)
-		if strings.Contains(userAgent, "MQQBrowser") {
-			param := fmt.Sprintf("%s,%s,%s,%v", mapData[BODY], mapData[TRADE_NO], str_lib.UrlToUrlEncode(mapData[NOTIFY_URL].(string)), mapData[TOTAL_FEE])
-			script := getOauth2Url(wxAppId, wxPaymentNotify, param)
-			s := strings.Replace(wxSkipPage, "执行脚本", script, 1)
-			c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(s))
-		} else if strings.Contains(userAgent, "AlipayClient") {
+		if strings.Contains(userAgent, "AlipayClient") {
 			var dealInfo alipay.DealBaseInfo
 			json_lib.ObjectToObject(&dealInfo, mapData)
 			dealInfo.Subject = dealInfo.Body
@@ -134,7 +129,24 @@ func unifyPayPage(c *gin.Context) {
 			} else {
 				gin_check.SimpleReturn(ERR_CALL_PARMENT, err.Error(), c)
 			}
+		} else /*if strings.Contains(userAgent, "MQQBrowser") || (strings.Contains(userAgent, "AppleWebKit") && strings.Contains(userAgent, "iPhone")) */ {
+			param := fmt.Sprintf("%s,%s,%s,%v", mapData[BODY], mapData[TRADE_NO], str_lib.UrlToUrlEncode(mapData[NOTIFY_URL].(string)), mapData[TOTAL_FEE])
+			script := getOauth2Url(wxAppId, wxPaymentNotify, param)
+			s := strings.Replace(wxSkipPage, "执行脚本", script, 1)
+			c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(s))
 		}
+		//else if strings.Contains(userAgent, "AlipayClient") {
+		//	var dealInfo alipay.DealBaseInfo
+		//	json_lib.ObjectToObject(&dealInfo, mapData)
+		//	dealInfo.Subject = dealInfo.Body
+		//	dealInfo.TotalFee = dealInfo.TotalFee / 100
+		//	dealInfo.NotifyUrl = mapData[NOTIFY_URL].(string)
+		//	if payPage, err := ali_payment.AliH5Payment(dealInfo); err == nil {
+		//		c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(payPage))
+		//	} else {
+		//		gin_check.SimpleReturn(ERR_CALL_PARMENT, err.Error(), c)
+		//	}
+		//}
 	}
 }
 

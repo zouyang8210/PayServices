@@ -199,6 +199,34 @@ func Init(appId, mchId, appSecret, apiSecret string, cFile, kFile string, MinPro
 	wxApiSecret = apiSecret
 	certFile = cFile
 	keyFile = kFile
+	//	x := `<xml><appid><![CDATA[wx472910bb92602c49]]></appid>
+	//<bank_type><![CDATA[CFT]]></bank_type>
+	//<cash_fee><![CDATA[148]]></cash_fee>
+	//<coupon_count><![CDATA[1]]></coupon_count>
+	//<coupon_fee>6</coupon_fee>
+	//<coupon_fee_0><![CDATA[6]]></coupon_fee_0>
+	//<coupon_id_0><![CDATA[2000000081973479194]]></coupon_id_0>
+	//<fee_type><![CDATA[CNY]]></fee_type>
+	//<is_subscribe><![CDATA[Y]]></is_subscribe>
+	//<mch_id><![CDATA[1486136062]]></mch_id>
+	//<nonce_str><![CDATA[F0FF3B056F4C346E180D1A2AFE3EB6C0]]></nonce_str>
+	//<openid><![CDATA[oBUIk1P8AOZFyfrHEcCBmF8mPYmg]]></openid>
+	//<out_trade_no><![CDATA[3A11A99C8A632E4BFFE09D19C13D110E]]></out_trade_no>
+	//<result_code><![CDATA[SUCCESS]]></result_code>
+	//<return_code><![CDATA[SUCCESS]]></return_code>
+	//<sign><![CDATA[DB9923CA61BF799CDAF36E06E69FBE8D]]></sign>
+	//<time_end><![CDATA[20190808134402]]></time_end>
+	//<total_fee>154</total_fee>
+	//<trade_type><![CDATA[JSAPI]]></trade_type>
+	//<transaction_id><![CDATA[4200000351201908081152636406]]></transaction_id>
+	//</xml>`
+	//	if b, c := wxVerifyPaymentNotify(x); b {
+	//		fmt.Println("success")
+	//		fmt.Println(c)
+	//	} else {
+	//		fmt.Println("fail")
+	//		fmt.Println(c)
+	//	}
 }
 
 //获取商家支付码
