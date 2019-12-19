@@ -23,7 +23,7 @@ const OAUTH2_PARAM = "appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_b
 
 //配置文件字段
 const (
-	WECHAT        = "WeChat"      //微信
+	WECHAT        = "weChat"      //微信
 	ALIPAY        = "AliPay"      //支付宝
 	WX_APP_ID     = "wxAppId"     //微信公众号
 	WX_MCH_ID     = "wxMchId"     //微信商户号
@@ -35,7 +35,7 @@ const (
 //路径
 const (
 	CONF_PATH            = "conf/conf.txt"       //配置文件相对路径
-	WX_RELATIVE_PATH     = "/payService/WeChat/" //微信接口相对路径
+	WX_RELATIVE_PATH     = "/payService/weChat/" //微信接口相对路径
 	ALIPAY_RELATIVE_PATH = "/payService/AliPay/" //支付宝接口相对路径
 )
 
@@ -132,6 +132,7 @@ func unifyPayPage(c *gin.Context) {
 		} else /*if strings.Contains(userAgent, "MQQBrowser") || (strings.Contains(userAgent, "AppleWebKit") && strings.Contains(userAgent, "iPhone")) */ {
 			param := fmt.Sprintf("%s,%s,%s,%v", mapData[BODY], mapData[TRADE_NO], str_lib.UrlToUrlEncode(mapData[NOTIFY_URL].(string)), mapData[TOTAL_FEE])
 			script := getOauth2Url(wxAppId, wxPaymentNotify, param)
+			fmt.Println(script, "==")
 			s := strings.Replace(wxSkipPage, "执行脚本", script, 1)
 			c.Data(HTTP_SUCCESS, TEXT_HTML, []byte(s))
 		}
